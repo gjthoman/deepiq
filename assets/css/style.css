@@ -1,10 +1,10 @@
 .card {
 	width: 200px;
-	height: 250px;
+	height: 260px;
 	background-color: #ffe;
 	border-radius: 10px;
 	border: 1px solid black;
-	margin-right: 20px;
+	margin-left: 40px;
 	margin-bottom: 20px;
 	float:left;
 	position: relative;
@@ -22,16 +22,19 @@
 	left: 5%;
 	right: 5%;
 	width: 90%;
+	text-align: center;
 }
 .tap {
 	position: absolute;
 	bottom: 10px;
 	left: 10px;
+	cursor: pointer;
 }
 .remove {
 	position: absolute;
 	top: 10px;
 	right: 10px;
+	cursor: pointer;
 }
 button {
 	font-size: 2em;
@@ -47,4 +50,9 @@ button {
 	top:10px;
 	left:10px;
 	font-size: 2em;
+}
+.tapped {
+	-ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+    transform: rotate(90deg);
 }

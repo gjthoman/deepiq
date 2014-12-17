@@ -4,5 +4,8 @@ $(document).ready(function(){
 	});
 	$('.cards').on('click', '.remove', function(){
 		$(this).closest('.card').remove();
-	})
+	});
+	$('.cards').on('click', '.tap', function(){
+		$(this).closest('.card').toggleClass('tapped');
+	});
 });
