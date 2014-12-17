@@ -1,0 +1,50 @@
+.card {
+	width: 200px;
+	height: 250px;
+	background-color: #ffe;
+	border-radius: 10px;
+	border: 1px solid black;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	float:left;
+	position: relative;
+}
+.stats {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	font-family: sans-serif;
+	font-weight: bold;
+}
+.card p {
+	position: absolute;
+	bottom: 40px;
+	left: 5%;
+	right: 5%;
+	width: 90%;
+}
+.tap {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+}
+.remove {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+button {
+	font-size: 2em;
+	width: 30%;
+	margin: 0 auto;
+	display: block;
+}
+.message {
+	text-align: center;
+}
+.turn {
+	position: absolute;
+	top:10px;
+	left:10px;
+	font-size: 2em;
+}
