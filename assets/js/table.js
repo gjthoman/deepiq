@@ -1,16 +1,28 @@
 var Table = {
 	number: 0,
 	modifier: 0,
+	choice: null,
+	token: null,
+	nextRoll: true,
+	
 	roll: function (){
 		return Math.floor( Math.random() * 10 );
 	},
+	
 	render: function( roll ) {
+		roll += this.modifier;
+
+		roll = roll >= 0 ? roll : 0;
+		roll = roll < Tables[this.number].length ? roll : Tables[this.number].length - 1;
+
 		var result = Tables[this.number][roll];
-		$('.message').html( result.message );
-		console.log( result.addToken );
-		console.log(this.number);
+		this.token = result;
+		if ( result.choice ) {
+			this.renderChoice( result.choice );
+		} else {
+			this.renderMessage( result.message );
+		}
 		if( result.addToken ) {
-			console.log('addToken');
 			this.addToken(result.addToken);
 		}
 
@@ -20,22 +32,29 @@ var Table = {
 			}
 		}
 	},
+	
 	addToken: function( token ) {
 		var card = {
 			attack: token.strength[0],
 			toughness: token.strength[1],
 			message: '',
-			multi: false
+			multi: false,
+			type: token.type
 		};
 		if( token.modify != null ){
 			this.modify( card, token.modify );
 		} 
 	},
+	
 	modify: function( card, modify ){ 
-		var roll = this.roll() + modify;
+		var roll = this.roll() + modify + this.modifier;
 
 		if (roll < 0) {
 			roll = 0;
+		}
+
+		if ( roll >= Tokens[roll].length ) {
+			roll = Tokens[roll].length - 1;
 		}
 
 		if ( Tokens[roll].message ) {
@@ -70,14 +89,55 @@ var Table = {
 		}
 
 	},
+	
 	renderCard: function( card ) {
-		$card = $('<div class="card"><span class="remove">remove</span><span class="tap">tap</span></div>');
+		console.log(card);
+		$card = $('<div class="card ' + card.type +'"><span class="remove">remove</span><span class="tap">tap</span></div>');
 		$message = $('<p>' + card.message + '</p>');
-		$stats = $('<span class="stats"><span>'+ card.attack +'</span>/<span>'+ card.toughness +'</span></span>');
-
+		$stats = '';
+		if ( card.attack ) {
+			$stats = $('<span class="stats"><span>'+ card.attack +'</span>/<span>'+ card.toughness +'</span></span>');
+		}
 		$card.append($stats).append($message);
 		$('.cards').append($card);
 	},
+	
+	renderMessage: function( message ) {
+		$message = $('<div class="message-wrapper"><div class="message"><p>' + message + '</p><button>OK</button></div></div>');
+		$('body').append($message);
+	},
+
+	renderChoice: function( choice ) {
+		this.choice = choice;
+		$choice = $('<div class="choice-wrapper"><div class="choice"><button>' +choice[0].message+ '</button><button>' +choice[1].message+ '</button></div></div>');
+		$('body').append($choice);
+
+	},
+
+	renderSpooky: function( modifier ) {
+		var roll = this.roll() + modifier + this.modifier;
+		if ( roll < 0 ) {
+			roll = 0;
+		}
+		if ( roll >= Spooky.length ) {
+			roll = Spooky.length - 1;
+		}
+		var spooky = Spooky[ roll ];
+
+		if ( spooky.nextRoll == false ) {
+			this.nextRoll = false;
+			this.renderMessage( spooky.message );
+		} else if (spooky.card) {
+			this.renderCard( spooky.card );
+		} else if (spooky.message ) {
+			this.renderMessage( spooky.message );
+		}
+
+		if ( spooky.rollModifier ) {
+			this.modifier += spooky.rollModifier;
+		}
+	},
+	
 	getColor: function() {
 		newRoll = this.roll();
 

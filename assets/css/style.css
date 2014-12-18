@@ -1,3 +1,6 @@
+.cards {
+	padding-top: 2em;
+}
 .card {
 	width: 200px;
 	height: 260px;
@@ -8,6 +11,15 @@
 	margin-bottom: 20px;
 	float:left;
 	position: relative;
+}
+.creature {
+	background-color: #ffe;
+}
+.enchantment {
+	background-color: #efe;
+}
+.artifact {
+	background-color: #eee;
 }
 .stats {
 	position: absolute;
@@ -42,8 +54,33 @@ button {
 	margin: 0 auto;
 	display: block;
 }
-.message {
+.message,
+.choice {
 	text-align: center;
+	width: 50%;
+	margin-left: 25%;
+	background: white;
+	height: 50%;
+	margin-top: 25%;
+	border-radius: 10px;
+	border: 2px solid black;
+	vertical-align: middle;
+	position: absolute;
+}
+.message p {
+	font-size: 1.5em;
+	padding-top: 2em;
+}
+.message button {
+	position: absolute;
+	bottom: 10%;
+	left: 30%;
+	width: 40%;
+}
+.choice button {
+	width:80%;
+	margin-left:10%;
+	margin-top:10%;
 }
 .turn {
 	position: absolute;
@@ -55,4 +92,13 @@ button {
 	-ms-transform: rotate(90deg); /* IE 9 */
     -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
     transform: rotate(90deg);
+}
+.choice-wrapper,
+.message-wrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: rgba(0,0,0,0.5);
 }
